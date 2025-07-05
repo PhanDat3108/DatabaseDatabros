@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image Row Display</title>
+
+  <!-- CSS nội bộ -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+  <!-- Font & Icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://db.onlinewebfonts.com/c/12ece9d4b11e224fbbd0b5ca246bb213?family=Reey+Regular" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Thanh liên hệ -->
+  <div class="header">
+    <div class="header-contact">
+      <div class="header-left">
+        <ul>
+          <li><i class="fas fa-phone icon butten"></i><span class="info">0977574798</span></li>
+          <li>
+            <a href="mailto:Phandat.ptit@gmail.com">
+              <i class="fas fa-envelope icon butten"></i>
+              <span class="info">Phandat.Ptit@gmail.com</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="header-right">
+        <a href="https://www.facebook.com/phandat3108" target="_blank">
+          <i class="fab fa-facebook-f icon info"></i>
+        </a>
+        <a href="https://instagram.com/yourpage" target="_blank">
+          <i class="fab fa-instagram icon info"></i>
+        </a>
+        <div class="butten-background">Book now</div>
+      </div>
+    </div>
+
+    <!-- Navbar -->
+    <div class="header-navbar">
+      <ul>
+        <li></li>
+          <a href="home.html">
+            <img src="{{ url_for('static', filename='anh/ChatGPT_Image_14_07_05_9_thg_5__2025-removebg-preview.png') }}">
+          </a>
+        <div class="koko"style=" width:1150px"></div>
+        <div onclick="toggleDropdownLogout()" class="userbox"><i class="fa-solid fa-user"></i></div>
+      <li>  <p>Admin</p></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Poster -->
+  
+
+  <!-- Khối setting -->
+  <div class="setting">
+    <div class="setting-box-left">
+      <h3 class="namepage" style="color:#d93769">DATABROS<span style="color:#9c1444">AIRPORT</span></h3>
+      <div class="select-setting">
+        <label><i class="fa-solid fa-chart-bar"></i> Thông số</label>
+        <ul class="manage_setting">
+          <li style="cursor:pointer" onclick="toggleDisplayFlex('thongke')">Chuyến Bay và Doanh thu</li>
+          <li  style="cursor:pointer" onclick="toggleDisplayFlex('unpaid_passengers')">Công nợ</li>
+      
+        </ul>
+
+        <label><i class="fa-solid fa-gear"></i> Thêm</label>
+        <ul class="manage_setting">
+          <li style="cursor:pointer" onclick="toggleDisplayFlex('datve')" >Đặt vé</li>
+          <li style="cursor:pointer" onclick="toggleDisplayFlex('themHanhLy')">Hành lý</li>
+          <li style="cursor:pointer" onclick="toggleDisplayFlex('addchuyenbay')">Chuyến bay</li>
+          <li style="cursor:pointer" onclick="toggleDisplayFlex('addnhanvien')">Nhân Viên</li>
+          
+        </ul>
+
+        <label><i class="fa-solid fa-handshake" ></i> Tra cứu và chỉnh sửa</label>
+        <ul class="manage_setting">
+          <li style="cursor:pointer" onclick="toggleDisplayFlexx('timve')" >Vé</li>
+          <li style="cursor:pointer" onclick="toggleDisplayFlexx('suaHanhLy')" >Hành Lý</li>
+          <li style="cursor:pointer" onclick="toggleDisplayFlexx('suaChuyenBay')">Giao dịch</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="setting-box-right">
+        <div class="form-box" id="datve">
+   <form id="ticketForm">
+  <label>Họ tên:</label>
+  <input type="text" name="hoten" required><br>
+
+  <label>Giới tính:</label>
+  <select name="gioitinh" required>
+    <option value="Nam">Nam</option>
+    <option value="Nữ">Nữ</option>
+
+  </select>
+
+  <label>Quốc tịch:</label>
+  <input type="text" name="quoctich" required><br>
+
+  <label>Loại giấy tờ:</label>
+  <input type="text" name="loaigiayto" required><br>
+
+  <label>Số giấy tờ:</label>
+  <input type="text" name="sogiayto" required><br>
+
+  <label>Số điện thoại:</label>
+  <input type="text" name="sdt" required><br>
+
+  <label>Mã chuyến bay:</label>
+  <input type="text" name="machuyenbay" required><br>
+
+  <label>Số ghế:</label>
+  <input type="text" name="soghe" required><br>
+
+  <label>Hạng ghế:</label>
+  <select name="hangve" required>
+    <option value="Phổ thông">Phổ thông</option>
+    <option value="Thương gia">Thương gia</option>
+    <option value="Hạng nhất">Hạng nhất</option>
+  </select><br>
+
+  <label>Giá vé:</label>
+  <input type="number" name="giave" required><br>
+
+ <label>Trạng thái thanh toán</label>
+  <select name="trangthaithanhtoan" required>
+    <option value="Đã thanh toán">Đã Thanh Toán</option>
+    <option value="Chưa thanh toán">Chưa thanh toán</option>
+  </select><br>
+  <button type="submit">Đặt vé</button>
+  <br>
+  <br>
+  <br>
+  <br>
+</form>
+
+
+  
+  </div>
+
+  <div id="addnhanvien" class="form-box" style="display: none; flex-direction: column;">
+  <h2>Thêm Nhân Viên Mới</h2>
+  <form method="POST" action="/add_nhanvien">
+    <input type="text" name="hoten" placeholder="Họ tên" required>
+    <select name="gioitinh" required>
+      <option value="">-- Giới tính --</option>
+      <option value="Nam">Nam</option>
+      <option value="Nữ">Nữ</option>
+      <option value="Khác">Khác</option>
+    </select>
+    <input type="text" name="vaitro" placeholder="Vai trò (ví dụ: Phi công, Tiếp viên...)" required>
+    <input type="text" name="machuyenbay" placeholder="Mã chuyến bay (có thể để trống nếu làm tại sân bay)">
+    <input type="text" name="trangthai" placeholder="Trạng thái làm việc (ví dụ: Đang làm việc, Nghỉ phép)" required>
+    <button type="submit">Thêm nhân viên</button>
+  </form>
+
+  <h2>Danh Sách Nhân Viên</h2>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Mã NV</th>
+        <th>Họ tên</th>
+        <th>Giới tính</th>
+        <th>Vai trò</th>
+        <th>Mã chuyến bay</th>
+        <th>Trạng thái</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for nv in nhanvien_list %}
+        <tr>
+          <td>{{ nv.MaNhanVien }}</td>
+          <td>{{ nv.HoTen }}</td>
+          <td>{{ nv.GioiTinh }}</td>
+          <td>{{ nv.VaiTro }}</td>
+          <td>{{ nv.MaChuyenBay or "—" }}</td>
+          <td>{{ nv.TrangThaiLamViec }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+  <div id="suaChuyenBay" class="form-box" style="display: {{ 'flex' if flights_list else 'none' }}; flex-direction: column; padding: 20px;">
+  <h3>Tìm chuyến bay</h3>
+  <form method="POST" action="/search_flight">
+    <label>Mã chuyến bay:</label>
+    <input type="text" name="search_machuyenbay" placeholder="Nhập mã chuyến bay" required>
+    <button type="submit">Tìm</button>
+  </form>
+
+  {% if flights_list %}
+  <div id="result_flight" style="display: flex; flex-direction: column; margin-top: 20px;">
+    <h3>Kết quả tìm kiếm chuyến bay:</h3>
+    <table border="1" cellpadding="8" id="flightTable">
+      <tr>
+        <th>Mã Chuyến Bay</th>
+        <th>Mã Máy Bay</th>
+        <th>Số Hiệu</th>
+        <th>Sân Bay Đối Tác</th>
+        <th>Hướng Bay</th>
+        <th>Trạng Thái</th>
+      </tr>
+      {% for flight in flights_list %}
+      <tr>
+        <td>{{ flight.MaChuyenBay }}</td>
+        <td>{{ flight.MaMayBay }}</td>
+        <td>{{ flight.SoHieu }}</td>
+        <td>{{ flight.MaSanBayDoiTac }}</td>
+        <td>{{ flight.HuongBay }}</td>
+        <td>{{ flight.TrangThai }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <button onclick="editSelectedFlight()">Sửa chuyến bay đã chọn</button>
+
+    <h3>Sửa thông tin chuyến bay</h3>
+    <form id="editFlightForm" method="POST" action="/update_flight">
+      <label>Mã chuyến bay:</label>
+      <input type="text" name="machuyenbay" id="edit_machuyenbay" readonly><br>
+
+      <label>Mã máy bay:</label>
+      <input type="text" name="mamaybay" id="edit_mamaybay"><br>
+
+      <label>Số hiệu:</label>
+      <input type="text" name="sohieu" id="edit_sohieu"><br>
+
+      <label>Sân bay đối tác:</label>
+      <input type="text" name="masanbaydoitac" id="edit_masanbaydoitac"><br>
+
+      <label>Hướng bay:</label>
+      <select name="huongbay" id="edit_huongbay">
+        <option value="Đi">Đi</option>
+        <option value="Đến">Đến</option>
+      </select><br>
+
+      <label>Trạng thái:</label>
+      <select name="trangthai" id="edit_trangthai">
+        <option value="Đang cất cánh">Đang cất cánh</option>
+        <option value="Đang chờ cất cánh">Đang chờ cất cánh</option>
+        <option value="Đã hạ cánh">Đã hạ cánh</option>
+        <option value="Hủy chuyến">Hủy chuyến</option>
+      </select><br>
+
+      <button type="submit">Xác nhận sửa</button>
+    </form>
+  </div>
+  {% endif %}
+</div>
+
+ <div id="thongke" class="thongke-dashboard form-box" style="display:none">
+  
+  
+  <canvas id="revenueChart" width="800" height="400"></canvas>
+<canvas id="flightChart" width="600" height="300" style="margin-top: 30px;"></canvas>
+
+
+  
+</div>
+
+</div>
+<div id="addchuyenbay" class="form-box" style="display: none; flex-direction: column;">
+  <h3>Thêm thông tin chuyến bay</h3>
+  <form method="POST" action="/add_flight">
+    <label>Mã chuyến bay:</label>
+    <input type="text" name="machuyenbay" required><br>
+
+    <label>Mã máy bay:</label>
+    <input type="text" name="mamaybay" required><br>
+
+    <label>Số hiệu chuyến bay:</label>
+    <input type="text" name="sohieu" required><br>
+
+    <label>Mã sân bay đối tác:</label>
+    <input type="text" name="masanbaydoitac" required><br>
+
+    <label>Hướng bay:</label>
+    <select name="huongbay" required>
+      <option value="Đi">Đi</option>
+      <option value="Đến">Đến</option>
+    </select><br>
+
+    <label>Trạng thái:</label>
+    <select name="trangthai" required>
+      <option value="Đang cất cánh">Đang cất cánh</option>
+      <option value="Đang chờ cất cánh">Đang chờ cất cánh</option>
+      <option value="Đã hạ cánh">Đã hạ cánh</option>
+      <option value="Hủy chuyến">Hủy chuyến</option>
+      <option value="Trì hoãn">Trì hoãn</option>
+      <option value="Tạm hoãn">Tạm hoãn</option>
+    </select><br>
+
+    <button type="submit">Thêm chuyến bay</button>
+  </form>
+</div>
+
+
+
+<div id="timve" class="form-box"
+     style="display: {{ 'flex' if tickets else 'none' }}; flex-direction: column; padding: 20px;">
+
+
+
+  <form method="POST" action="/search_ticket">
+  <input type="text" name="searchve" placeholder="Nhập mã khách hàng" required>
+  <button type="submit">Tìm vé</button>
+</form>
+
+<div id="result"
+     style="display: {{ 'flex' if tickets else 'none' }}; flex-direction: column; margin-top: 20px;">
+  <h3>Kết quả tìm kiếm:</h3>
+
+  {% if tickets %}
+  <table border="1" cellpadding="8" id="ticketTable">
+    <tr>
+      <th>Mã Hành Khách</th>
+      <th>Họ Tên</th>
+      <th>Quốc Tịch</th>
+      <th>Mã Vé</th>
+      <th>Số Ghế</th>
+      <th>Hạng Vé</th>
+      <th>Giá Vé</th>
+      <th>Trạng Thái</th>
+      <th>Chuyến Bay</th>
+    </tr>
+    {% for ticket in tickets %}
+    <tr>
+      <td>{{ ticket.MaHanhKhach }}</td>
+      <td>{{ ticket.HoTen }}</td>
+      <td>{{ ticket.QuocTich }}</td>
+      <td>{{ ticket.MaVe }}</td>
+      <td>{{ ticket.SoGhe }}</td>
+      <td>{{ ticket.HangVe }}</td>
+      <td>{{ ticket.GiaVe }}</td>
+      <td>{{ ticket.TrangThaiThanhToan }}</td>
+      <td>{{ ticket.MaChuyenBay }}</td>
+     
+
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+    <p style="color:red;">Không tìm thấy vé.</p>
+  {% endif %}
+<button onclick="editSelectedTicket()">Sửa vé đã chọn</button>
+
+
+  <h3>Sửa thông tin vé</h3>
+<form id="editForm" method="POST" action="/update_ticket">
+  <input type="hidden" name="mave" id="edit_mave">
+
+  <label>Số ghế:</label>
+  <input type="text" name="soghe" id="edit_soghe"><br>
+
+ 
+  <label>Hạng ghế:</label>
+  <select name="hangve" id="edit_hangve">
+    <option value="Phổ thông">Phổ thông</option>
+    <option value="Thương gia">Thương gia</option>
+    <option value="Hạng nhất">Hạng nhất</option>
+  </select>
+
+  <label>Giá vé:</label>
+  <input type="number" name="giave" id="edit_giave"step="0.01" min="0"><br>
+
+  <label>Trạng thái thanh toán:</label>
+  <select name="trangthai" id="edit_trangthai">
+    <option value="Đã thanh toán">Đã thanh toán</option>
+    <option value="Chưa thanh toán">Chưa thanh toán</option>
+  </select><br>
+
+  <button type="submit">Xác nhận sửa</button>
+</form>
+
+</div>
+</div>
+  <div id="themHanhLy" class="form-box" style="display: none; padding: 20px;">
+  <h3>Thêm Hành Lý</h3>
+  <form id="luggageForm">
+    <label for="mahanhkhach">Mã Hành Khách:</label>
+    <input type="text" name="mahanhkhach" required><br>
+
+    <label for="trongluong">Trọng lượng (kg):</label>
+    <input type="number" step="0.01" name="trongluong" required><br>
+
+    <label for="mota">Mô tả:</label>
+    <textarea name="mota" rows="3" placeholder="VD: vali đỏ, túi du lịch..."></textarea><br>
+
+    <button type="submit">Thêm hành lý</button>
+ 
+  </form>
+</div>
+<div id="unpaid_passengers" class="form-box" style="display: {{ 'flex' if show_unpaid else 'none' }}; flex-direction: column">
+  <h3>Danh sách hành khách chưa thanh toán</h3>
+
+  <form method="POST" action="/search_unpaid" style="margin-bottom: 15px;">
+    <input type="text" name="search_mahk" placeholder="Nhập mã hành khách cần tìm" required>
+    <button type="submit">Tìm kiếm</button>
+  </form>
+
+  {% if search_result is defined and search_result %}
+    <h4>Kết quả tìm kiếm:</h4>
+    <table border="1" style="width:100%; margin-top:10px;">
+      <thead>
+        <tr>
+          <th>Mã Hành Khách</th>
+          <th>Họ Tên</th>
+          <th>Giới Tính</th>
+          <th>Quốc Tịch</th>
+          <th>Mã Vé</th>
+          <th>Chuyến Bay</th>
+          <th>Số Ghế</th>
+          <th>Hạng Vé</th>
+          <th>Giá Vé</th>
+          <th>Trạng Thái</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in search_result %}
+        <tr>
+          <td>{{ p.MaHanhKhach }}</td>
+          <td>{{ p.HoTen }}</td>
+          <td>{{ p.GioiTinh }}</td>
+          <td>{{ p.QuocTich }}</td>
+          <td>{{ p.MaVe }}</td>
+          <td>{{ p.MaChuyenBay }}</td>
+          <td>{{ p.SoGhe }}</td>
+          <td>{{ p.HangVe }}</td>
+          <td>{{ p.GiaVe }}</td>
+          <td style="color:red;">{{ p.TrangThaiThanhToan }}</td>
+          <td>
+            <form method="POST" action="/update_payment" style="display:inline;">
+              <input type="hidden" name="mave" value="{{ p.MaVe }}">
+              <button type="submit">Thanh toán</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+  {% elif search_result is defined and search_result|length == 0 %}
+    <p style="color:red;">Không tìm thấy hành khách chưa thanh toán với mã: {{ search_mahk }}</p>
+    
+    <h4>Tất cả hành khách chưa thanh toán:</h4>
+    <table border="1" style="width:100%; margin-top:10px;">
+      <thead>
+        <tr>
+          <th>Mã Hành Khách</th>
+          <th>Họ Tên</th>
+          <th>Giới Tính</th>
+          <th>Quốc Tịch</th>
+          <th>Mã Vé</th>
+          <th>Chuyến Bay</th>
+          <th>Số Ghế</th>
+          <th>Hạng Vé</th>
+          <th>Giá Vé</th>
+          <th>Trạng Thái</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in unpaid_passengers %}
+        <tr>
+          <td>{{ p.MaHanhKhach }}</td>
+          <td>{{ p.HoTen }}</td>
+          <td>{{ p.GioiTinh }}</td>
+          <td>{{ p.QuocTich }}</td>
+          <td>{{ p.MaVe }}</td>
+          <td>{{ p.MaChuyenBay }}</td>
+          <td>{{ p.SoGhe }}</td>
+          <td>{{ p.HangVe }}</td>
+          <td>{{ p.GiaVe }}</td>
+          <td style="color:red;">{{ p.TrangThaiThanhToan }}</td>
+          <td>
+            <form method="POST" action="/update_payment" style="display:inline;">
+              <input type="hidden" name="mave" value="{{ p.MaVe }}">
+              <button type="submit">Thanh toán</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+  {% else %}
+    <table border="1" style="width:100%; margin-top:10px;">
+      <thead>
+        <tr>
+          <th>Mã Hành Khách</th>
+          <th>Họ Tên</th>
+          <th>Giới Tính</th>
+          <th>Quốc Tịch</th>
+          <th>Mã Vé</th>
+          <th>Chuyến Bay</th>
+          <th>Số Ghế</th>
+          <th>Hạng Vé</th>
+          <th>Giá Vé</th>
+          <th>Trạng Thái</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in unpaid_passengers %}
+        <tr>
+          <td>{{ p.MaHanhKhach }}</td>
+          <td>{{ p.HoTen }}</td>
+          <td>{{ p.GioiTinh }}</td>
+          <td>{{ p.QuocTich }}</td>
+          <td>{{ p.MaVe }}</td>
+          <td>{{ p.MaChuyenBay }}</td>
+          <td>{{ p.SoGhe }}</td>
+          <td>{{ p.HangVe }}</td>
+          <td>{{ p.GiaVe }}</td>
+          <td style="color:red;">{{ p.TrangThaiThanhToan }}</td>
+          <td>
+            <form method="POST" action="/update_payment" style="display:inline;">
+              <input type="hidden" name="mave" value="{{ p.MaVe }}">
+              <button type="submit">Thanh toán</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+</div>
+
+<br>
+<div id="suaHanhLy" class="form-box"
+     style="display: {{ 'flex' if luggage_list else 'none' }}; flex-direction: column; padding: 20px;">
+  <h3>Tìm hành lý</h3>
+  <form method="POST" action="/search_luggage">
+  <label>Mã Hành Khách:</label>
+  <input type="text" name="search_mahanhkhach" placeholder="Nhập mã hành khách" required>
+  <button type="submit">Tìm</button>
+</form>
+
+{% if luggage_list %}
+<div id="result_luggage"
+     style="display: flex; flex-direction: column; margin-top: 20px;">
+  <h3>Kết quả tìm kiếm hành lý:</h3>
+
+  <table border="1" cellpadding="8" id="luggageTable">
+    <tr>
+      <th>Mã Hành Lý</th>
+      <th>Mã Hành Khách</th>
+      <th>Trọng Lượng</th>
+      <th>Mô Tả</th>
+    </tr>
+    {% for luggage in luggage_list %}
+    <tr>
+      <td>{{ luggage.MaHanhLy }}</td>
+      <td>{{ luggage.MaHanhKhach }}</td>
+      <td>{{ luggage.TrongLuong }}</td>
+      <td>{{ luggage.MoTa }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  <button onclick="editSelectedLuggage()">Sửa hành lý đã chọn</button>
+
+  <h3>Sửa thông tin hành lý</h3>
+  <form id="editLuggageForm" method="POST" action="/update_luggage">
+   <label>Mã hành lý:</label>
+<input type="text" name="mahanhly" id="edit_mahanhly" ><br>
+
+    <label>Trọng lượng (kg):</label>
+    <input type="number" step="0.01" name="trongluong" id="edit_trongluong"><br>
+    <label>Mô tả:</label>
+    <textarea name="mota" rows="3" id="edit_mota" placeholder="VD: vali đỏ, túi du lịch..."></textarea><br>
+
+    <button type="submit">Xác nhận sửa</button>
+  </form>
+</div>
+{% endif %}
+
+</div>
+
+
+  
+    </div>
+    
+  </div>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
+<script>
+  const labels = {{ labels | tojson }};
+  const revenues = {{ revenues | tojson }};
+  const flights = {{ flights | tojson }};
+
+  // Doanh thu theo ngày
+  const ctxRevenue = document.getElementById('revenueChart').getContext('2d');
+  new Chart(ctxRevenue, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Doanh thu (VNĐ)',
+        data: revenues,
+        borderColor: 'rgba(75, 192, 192, 1)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        fill: true,
+        tension: 0.4
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Thống kê doanh thu theo ngày',
+          font: {
+            size: 18
+          }
+        }
+      }
+    }
+  });
+
+  // Số chuyến bay theo ngày
+  const ctxFlights = document.getElementById('flightChart').getContext('2d');
+  new Chart(ctxFlights, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Số chuyến bay',
+        data: flights,
+        backgroundColor: 'rgba(255, 159, 64, 0.6)',
+        borderColor: 'rgba(255, 159, 64, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Số chuyến bay theo ngày',
+          font: {
+            size: 18
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const maVe = localStorage.getItem("editVe");
+    if (maVe) {
+        const form = document.getElementById(`edit-ticket-${maVe}`);
+        if (form) form.style.display = "block";
+        localStorage.removeItem("editVe");
+    }
+
+    const maHL = localStorage.getItem("editHanhLy");
+    if (maHL) {
+        const form = document.getElementById(`edit-luggage-${maHL}`);
+        if (form) form.style.display = "block";
+        localStorage.removeItem("editHanhLy");
+    }
+});
+</script>
+
+
+</body>
+</html>
