@@ -17,7 +17,7 @@ db_config = {
 def get_connection():
     return mysql.connector.connect(**db_config)
 
-def get_statistics_data():
+def get_statistics_data(): #Dữ liệu biểu đồ
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
 
@@ -43,7 +43,7 @@ def get_statistics_data():
     cursor.close()
     conn.close()
     return labels, revenues, flights
-def get_nhanvien_list():
+def get_nhanvien_list(): #bảng các nhân viên 
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
     cursor.execute("SELECT * FROM NhanVien")
@@ -55,7 +55,7 @@ def get_image_list():
     image_folder = os.path.join(app.static_folder, 'anh')
     return [f"anh/{f}" for f in os.listdir(image_folder) if f.endswith(('.jpg', '.jpeg', '.png'))]
 
-def get_unpaid_passengers():
+def get_unpaid_passengers(): #công nợ
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
     cursor.execute("""
@@ -72,7 +72,7 @@ def get_unpaid_passengers():
     return passengers
 
 @app.route("/")
-def thong_ke_trang_chu():
+def thong_ke_trang_chu(): #bảng
     labels, revenues, flights = get_statistics_data()
     images = get_image_list()
     unpaid_passengers = get_unpaid_passengers()
@@ -83,7 +83,7 @@ def thong_ke_trang_chu():
                            nhanvien_list=nhanvien_list)  # <- truyền vào template
 
 @app.route('/book_ticket', methods=['POST'])
-def book_ticket():
+def book_ticket(): #đặt vé
     try:
         data = request.form
         ma_hanh_khach = 'HK' + str(random.randint(1000, 9999))
@@ -116,7 +116,7 @@ def book_ticket():
         return f"Lỗi khi đặt vé: {e}"
 
 @app.route('/add_luggage', methods=['POST'])
-def add_luggage():
+def add_luggage(): #thêm hành lý
     try:
         data = request.form
         conn = get_connection()
@@ -137,7 +137,7 @@ def add_luggage():
         return f"Lỗi thêm hành lý: {e}"
 
 @app.route('/search_ticket', methods=['POST'])
-def search_ticket():
+def search_ticket(): #tìm vé
     searched = request.form.get('searchve')
     if not searched:
      return redirect('/')  
@@ -162,7 +162,7 @@ def search_ticket():
                            labels=labels, revenues=revenues, flights=flights,
                            images=images, unpaid_passengers=unpaid_passengers)
 @app.route('/search_flight', methods=['POST'])
-def search_flight():
+def search_flight(): #tìm chuyến bay
     machuyenbay = request.form['search_machuyenbay']
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
@@ -183,7 +183,7 @@ def search_flight():
                            flights=flights, images=images,
                            unpaid_passengers=unpaid_passengers)
 @app.route('/update_flight', methods=['POST'])
-def update_flight():
+def update_flight():   #thêm cbay
     try:
         data = request.form
         conn = get_connection()
@@ -209,7 +209,7 @@ def update_flight():
 
 
 @app.route('/update_ticket', methods=['POST'])
-def update_ticket():
+def update_ticket(): #thêm vé
     try:
         data = request.form
         conn = get_connection()
@@ -233,7 +233,7 @@ def update_ticket():
         return f"<script>alert('Lỗi khi cập nhật: {str(e)}'); window.location.href = "/";</script>"
 
 @app.route('/search_luggage', methods=['POST'])
-def search_luggage():
+def search_luggage():  #tìm hành lý
     ma_hk = request.form['search_mahanhkhach']
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
@@ -251,7 +251,7 @@ def search_luggage():
                            unpaid_passengers=unpaid_passengers)
 
 @app.route('/update_luggage', methods=['POST'])
-def update_luggage():
+def update_luggage(): #sửa hanh lý
     try:
         data = request.form
         conn = get_connection()
@@ -280,7 +280,7 @@ def update_luggage():
 
 
 @app.route("/update_payment", methods=["POST"])
-def update_payment():
+def update_payment():  #xử lý công nợ
     try:
         mave = request.form["mave"]
 
@@ -308,7 +308,7 @@ def update_payment():
         """
 
 @app.route('/search_unpaid', methods=['POST'])
-def search_unpaid():
+def search_unpaid():  #tìm công nợ
     ma_hk = request.form['search_mahk']
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
@@ -351,7 +351,7 @@ def search_unpaid():
                            show_unpaid=True)
 
 @app.route("/add_flight", methods=["POST"])
-def add_flight():
+def add_flight(): #thêm chuyến bay
     try:
         data = request.form
         conn = get_connection()
@@ -389,7 +389,7 @@ def add_flight():
         """
 
 @app.route("/add_nhanvien", methods=["POST"])
-def add_nhanvien():
+def add_nhanvien(): #thêm nhân viên
     try:
         data = request.form
         conn = get_connection()
