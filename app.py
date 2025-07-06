@@ -138,7 +138,10 @@ def add_luggage():
 
 @app.route('/search_ticket', methods=['POST'])
 def search_ticket():
-    searched = request.form['searchve']
+    searched = request.form.get('searchve')
+    if not searched:
+     return redirect('/')  
+
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
     cursor.execute("""
@@ -219,7 +222,13 @@ def update_ticket():
         conn.commit()
         cursor.close()
         conn.close()
-        return redirect(url_for('search_ticket'), code=307)
+        return """
+<script>
+    alert("Cập nhật vé thành công!");
+    window.location.href = "/";
+</script>
+"""
+
     except Exception as e:
         return f"<script>alert('Lỗi khi cập nhật: {str(e)}'); window.location.href = "/";</script>"
 
@@ -255,24 +264,49 @@ def update_luggage():
         conn.commit()
         cursor.close()
         conn.close()
-        return redirect(url_for('thong_ke_trang_chu'))
+        return """
+        <script>
+            alert("Cập nhật hành lý thành công!");
+            window.location.href = "/";
+        </script>
+        """
     except Exception as e:
-        return f"<script>alert('Lỗi khi cập nhật: {str(e)}'); window.location.href = "/";</script>"
+        return f"""
+        <script>
+            alert("Lỗi khi cập nhật hành lý: {str(e)}");
+            window.location.href = "/";
+        </script>
+        """
+
 
 @app.route("/update_payment", methods=["POST"])
 def update_payment():
-    mave = request.form["mave"]
+    try:
+        mave = request.form["mave"]
 
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("""
-        UPDATE DatVe SET TrangThaiThanhToan = 'Đã thanh toán' WHERE MaVe = %s
-    """, (mave,))
-    conn.commit()
-    cursor.close()
-    conn.close()
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute("""
+            UPDATE DatVe SET TrangThaiThanhToan = 'Đã thanh toán' WHERE MaVe = %s
+        """, (mave,))
+        conn.commit()
+        cursor.close()
+        conn.close()
 
-    return redirect(url_for('thong_ke_trang_chu'))
+        return """
+        <script>
+            alert("Thanh toán thành công!");
+            window.location.href = "/";
+        </script>
+        """
+    except Exception as e:
+        return f"""
+        <script>
+            alert("Lỗi khi thanh toán: {str(e)}");
+            window.location.href = "/";
+        </script>
+        """
+
 @app.route('/search_unpaid', methods=['POST'])
 def search_unpaid():
     ma_hk = request.form['search_mahk']

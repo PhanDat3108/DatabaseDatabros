@@ -70,7 +70,7 @@
         <label><i class="fa-solid fa-chart-bar"></i> Thông số</label>
         <ul class="manage_setting">
           <li style="cursor:pointer" onclick="toggleDisplayFlex('thongke')">Chuyến Bay và Doanh thu</li>
-          <li  style="cursor:pointer" onclick="toggleDisplayFlex('unpaid_passengers')">Công nợ</li>
+         
       
         </ul>
 
@@ -85,9 +85,10 @@
 
         <label><i class="fa-solid fa-handshake" ></i> Tra cứu và chỉnh sửa</label>
         <ul class="manage_setting">
+           <li  style="cursor:pointer" onclick="toggleDisplayFlex('unpaid_passengers')">Công nợ</li>
           <li style="cursor:pointer" onclick="toggleDisplayFlexx('timve')" >Vé</li>
           <li style="cursor:pointer" onclick="toggleDisplayFlexx('suaHanhLy')" >Hành Lý</li>
-          <li style="cursor:pointer" onclick="toggleDisplayFlexx('suaChuyenBay')">Giao dịch</li>
+          <li style="cursor:pointer" onclick="toggleDisplayFlexx('suaChuyenBay')">Chuyến Bay</li>
         </ul>
       </div>
     </div>
@@ -109,7 +110,11 @@
   <input type="text" name="quoctich" required><br>
 
   <label>Loại giấy tờ:</label>
-  <input type="text" name="loaigiayto" required><br>
+  <select type="text" name="loaigiayto" required>
+    <option value="Hộ chiếu">Hộ chiếu</option>
+    <option value="Hộ chiếu">CCCD</option>
+    <option value="Hộ chiếu">CMND</option>
+    <br>
 
   <label>Số giấy tờ:</label>
   <input type="text" name="sogiayto" required><br>
@@ -571,7 +576,7 @@
     {% endfor %}
   </table>
 
-  <button onclick="editSelectedLuggage()">Sửa hành lý đã chọn</button>
+ 
 
   <h3>Sửa thông tin hành lý</h3>
   <form id="editLuggageForm" method="POST" action="/update_luggage">
